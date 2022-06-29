@@ -1,0 +1,341 @@
+---
+title: "GGV896789_markdown"
+author: "Author's Name"
+date: '2022-06-19'
+output: word_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+##installing the needed packages
+
+library(ggplot2)
+library(Hmisc)
+library(mlogit)
+library(nnet)
+```
+
+```{r,echo=TRUE}
+##Importing data into R
+
+###NEW_YORK
+#Means of Commuting
+##YEAR2010
+data1<-read.csv("C:/Users/User/Documents/NY_mode of transit.csv")
+#data1<-NY_mode.of.transit
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+ggplot(data = data1,mapping = aes(x =X2010,y=mode.of.transit))+ stat_summary(geom="bar") + 
+   labs(title="How did people in NY Commute in 2010?", x="", y="")
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data1$mode.of.transit<-factor(data1$mode.of.transit,levels=data1$mode.of.transit[order(data1$X2010,decreasing=FALSE)])           
+
+```
+
+```{r,echo=TRUE}
+ ##ordered column chart
+ggplot(data1,mapping = aes(x =X2010,y=mode.of.transit))+ geom_bar(stat="identity") + 
+  labs(title="How did people in NY Commute in 2010?", x="", y="")          
+
+```
+
+```{r,echo=TRUE}
+##YEAR2020
+
+ggplot(data = data1,mapping = aes(x =X2020,y=mode.of.transit))+ stat_summary(geom="bar") + 
+  labs(title="How did people in NY Commute in 2020?", x="", y="")          
+
+```
+
+```{r cars}
+##pie chart
+pie(data1$X2010, labels=data1$mode.of.transit, main = "Transport mode NY", col = rainbow(length(data1$X2010)))
+
+pie(data1$X2020, labels=data1$mode.of.transit, main = "Transport mode NY", col = rainbow(length(data1$X2020)))
+```
+
+```{r,echo=TRUE}
+#Time to destination
+##YEAR2010
+
+#data2<-NY_commute.time
+data2<-read.csv("C:/Users/User/Documents/NY_commute time.csv")
+
+ggplot(data = data2,mapping = aes(x =X2010,y=commute.time))+ stat_summary(geom="bar") + 
+  labs(title="How long did people in NY spend on the road in 2010?", x="", y="")        
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data2$commute.time<-factor(data2$commute.time,levels=data2$commute.time[order(data2$X2010,decreasing=FALSE)])           
+```
+
+
+```{r,echo=TRUE}
+##ordered column chart
+ggplot(data2,mapping = aes(x =X2010,y=commute.time))+ geom_bar(stat="identity") + 
+  labs(title="How long did people in NY spend on the road in 2010?", x="", y="")  
+```
+
+```{r,echo=TRUE}
+##YEAR2020
+
+ggplot(data = data2,mapping = aes(x =X2020,y=commute.time))+ stat_summary(geom="bar") + 
+  labs(title="How long did people in NY spend on the road in 2020?", x="", y="")  
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data2$commute.time<-factor(data2$commute.time,levels=data2$commute.time[order(data2$X2020,decreasing=FALSE)]) 
+```
+
+```{r,echo=TRUE}
+##ordered column chart
+ggplot(data2,mapping = aes(x =X2020,y=commute.time))+ geom_bar(stat="identity") + 
+  labs(title="How long did people in NY spend in Commute in 2020?", x="", y="")
+```
+
+```{r,echo=TRUE}
+##descriptive statistics
+pie(data2$X2010, labels=data2$mode.of.transit, main = "Commute time NY", col = rainbow(length(data2$X2010)))
+
+pie(data2$X2020, labels=data2$mode.of.transit, main = "Commmute time NY", col = rainbow(length(data2$X2020)))
+```
+
+```{r,echo=TRUE}
+#Departure time
+##YEAR2010
+
+data3<-read.csv("C:/Users/User/Documents/NY_departure time.csv")
+```
+
+```{r,echo=TRUE}
+ggplot(data = data3,mapping = aes(x =X2010,y=departure.time))+ stat_summary(geom="bar") + 
+  labs(title="what time did people in NY leave their houses in 2010?", x="", y="")
+
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data3$departure.time<-factor(data3$departure.time,levels=data3$departure.time[order(data3$X2010,decreasing=FALSE)])
+```
+
+```{r,echo=TRUE}
+##ordered column chart
+ggplot(data3,mapping = aes(x =X2010,y=departure.time))+ geom_bar(stat="identity") + 
+  labs(title="what time did people in NY leave their houses in 2010?", x="", y="")
+```
+
+```{r,echo=TRUE}
+##YEAR2020
+
+ggplot(data = data3,mapping = aes(x =X2020,y=departure.time))+ stat_summary(geom="bar") + 
+  labs(title="what time did peopel in NY leave their houses in 2020?", x="", y="")
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data3$departure.time<-factor(data3$departure.time,levels=data3$departure.time[order(data3$X2020,decreasing=FALSE)])
+```
+
+```{r,echo=TRUE}
+##ordered column chart
+ggplot(data3,mapping = aes(x =X2020,y=departure.time))+ geom_bar(stat="identity") + 
+  labs(title="what time did people in LA leave their homes?", x="", y="")
+```
+
+```{r,echo=TRUE}
+##descriptive statistics
+pie(data3$X2010, labels=data3$mode.of.transit, main = "Departure time NY", col = rainbow(length(data3$X2010)))
+
+pie(data3$X2020, labels=data3$mode.of.transit, main = "Departure time NY", col = rainbow(length(data3$X2020)))
+```
+
+```{r,echo=TRUE}
+###LA
+##Year 2010
+data4<-read.csv("C:/Users/User/Documents/LA_mode of transit.csv")
+
+```
+
+```{r,echo=TRUE}
+ggplot(data = data4,mapping = aes(x =X2010,y=mode.of.commute))+ stat_summary(geom="bar") + 
+  labs(title="How did people in LA Commute in 2010?", x="", y="")
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data4$mode.of.commute<-factor(data4$mode.of.commute,levels=data4$mode.of.commute[order(data4$X2010,decreasing=FALSE)])
+```
+
+```{r,echo=TRUE}
+##ordered column chart
+ggplot(data4,mapping = aes(x =X2010,y=mode.of.commute))+ geom_bar(stat="identity") + 
+  labs(title="How did people in LA Commute in 2010?", x="", y="") 
+```
+
+```{r,echo=TRUE}
+
+##Year 2020
+
+ggplot(data = data4,mapping = aes(x =X2020,y=mode.of.commute))+ stat_summary(geom="bar") + 
+  labs(title="How did people in LA Commute in 2020?", x="", y="")
+```
+
+```{r,echo=TRUE}
+##descriptive statistics
+pie(data4$X2010, labels=data4$mode.of.transit, main = "Transport mode LA", col = rainbow(length(data4$X2010)))
+
+pie(data4$X2020, labels=data4$mode.of.transit, main = "Transport mode LA", col = rainbow(length(data4$X2020)))
+```
+
+```{r,echo=TRUE}
+#Time to destination
+##YEAR2010
+
+data5<-read.csv("C:/Users/User/Documents/LA_commute time.csv")
+
+```
+
+```{r,echo=TRUE}
+ggplot(data = data5,mapping = aes(x =X2010,y=commute.time))+ stat_summary(geom="bar") + 
+  labs(title="How long did people in LA spend on the road in 2010?", x="", y="")
+```
+
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data5$commute.time<-factor(data5$commute.time,levels=data5$commute.time[order(data5$X2010,decreasing=FALSE)]) 
+```
+
+```{r,echo=TRUE}
+
+##ordered column chart
+ggplot(data5,mapping = aes(x =X2010,y=commute.time))+ geom_bar(stat="identity") + 
+  labs(title="How long did people in LA spend on the road in 2010?", x="", y="") 
+```
+
+```{r,echo=TRUE}
+##YEAR2020
+
+ggplot(data = data5,mapping = aes(x =X2020,y=commute.time))+ stat_summary(geom="bar") + 
+  labs(title="How long did people in LA spend on the road in 2020?", x="", y="") 
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data5$commute.time<-factor(data5$commute.time,levels=data5$commute.time[order(data5$X2020,decreasing=FALSE)]) 
+```
+
+```{r,echo=TRUE}
+##ordered column chart
+ggplot(data5,mapping = aes(x =X2020,y=commute.time))+ geom_bar(stat="identity") + 
+  labs(title="How long did people in LA spend in Commute in 2020?", x="", y="") 
+```
+
+
+```{r,echo=TRUE}
+##descriptive statistics
+pie(data5$X2010, labels=data5$mode.of.transit, main = "COmmute time LA", col = rainbow(length(data5$X2010)))
+
+pie(data5$X2020, labels=data5$mode.of.transit, main = "COmmute time LA", col = rainbow(length(data5$X2020)))
+```
+
+```{r,echo=TRUE}
+#Departure time
+##YEAR2010
+
+data6<-read.csv("C:/Users/User/Documents/LA_departure time.csv")
+
+ggplot(data = data6,mapping = aes(x =X2010,y=departure.time))+ stat_summary(geom="bar") + 
+  labs(title="what time did people in LA leave their houses in 2010?", x="", y="")
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data6$departure.time<-factor(data6$departure.time,levels=data6$departure.time[order(data6$X2010,decreasing=FALSE)])  
+```
+
+```{r,echo=TRUE}
+##ordered column chart
+ggplot(data6,mapping = aes(x =X2010,y=departure.time))+ geom_bar(stat="identity") + 
+  labs(title="what time did people in LA leave their houses in 2010?", x="", y="")
+```
+
+
+```{r,echo=TRUE}
+##YEAR2020
+
+ggplot(data = data6,mapping = aes(x =X2020,y=departure.time))+ stat_summary(geom="bar") + 
+  labs(title="what time did peopel in LA leave their houses in 2020?", x="", y="") 
+```
+
+```{r,echo=TRUE}
+# Factor levels in decreasing order
+
+data6$departure.time<-factor(data6$departure.time,levels=data6$departure.time[order(data6$X2020,decreasing=FALSE)]) 
+```
+
+```{r,echo=TRUE}
+##ordered column chart
+ggplot(data6,mapping = aes(x =X2020,y=departure.time))+ geom_bar(stat="identity") + 
+  labs(title="what time did people in LA leave their homes in 2020?", x="", y="")
+```
+
+
+```{{r,echo=TRUE}
+##descriptive statistics
+pie(data6$X2010, labels=mode.of.transit, main = "Departure time LA", col = rainbow(length(x)))
+
+pie(data6$X2020, labels=mode.of.transit, main = "Departure time LA", col = rainbow(length(x)))
+```
+
+
+```{r,echo=TRUE}
+###multinomial logit model
+##NY
+dataset1<-read.csv("C:/Users/User/Documents/logitNY.csv")
+#dataset1<-logitNY
+
+model1<-multinom(dataset1$commute.mode~dataset1$population+dataset1$commute.time+dataset1$departure.time, data=dataset1)
+summary(model1) 
+```
+
+```{r,echo=TRUE}
+z <- summary(model1)$coefficients/summary(model1)$standard.errors
+z 
+```
+
+```{r,echo=TRUE}
+##LA
+dataset2<-read.csv("C:/Users/User/Documents/logit.csv")
+
+##LA
+#dataset<-logit
+
+model<-multinom(dataset2$commute.mode~dataset2$population+dataset2$commute.time+dataset2$departure.time, data=dataset2)
+summary(model)
+```
+
+```{r,echo=TRUE}
+z <- summary(model)$coefficients/summary(model)$standard.errors
+z 
+```
